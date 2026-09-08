@@ -1,0 +1,17 @@
+# Argo CD System Configuration
+
+This directory contains the core manifests for Argo CD.
+
+## Initial Bootstrap (Day 0)
+
+Argo CD must be manually applied once to the cluster before GitOps auto-sync takes over:
+
+```bash
+# 1. Create namespace
+kubectl create namespace argocd
+
+# 2. Install Argo CD core engine
+kubectl apply -n argocd --server-side -f system/install.yaml
+
+# 3. Apply the root application (self-management)
+kubectl apply -n argocd -f system/root-argocd-app.yaml
